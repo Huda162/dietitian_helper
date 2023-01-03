@@ -1,16 +1,64 @@
-.container {
+.page{
     background-color: rgb(241, 233, 206);
     height: 749px;
     width: 100%;
 }
 
+.container {
+    background-color: rgb(241, 233, 206);
+    height: 749px;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+}
+
 .container > .patient-info{
     background-color: rgb(243, 221, 148);
-    width: 1000px;
-    height: 320px;
-    box-shadow: 0 0 10px 0.25rem rgb(72, 131, 75);
-    margin-left: auto;
+    width: 250px;
+    height: 350px;
+    box-shadow: 0 0px 15px 1px rgb(72, 131, 75);
+        margin-left: 130px;
     margin-right: auto;
+    margin-top: 50px;
     padding: 30px;
     border-radius: 5px;
 }
+
+.days{
+    margin-top: 50px;
+    width: 50%;
+    height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-between;
+}
+
+.day-button{
+    font-size: 22px;
+    font-family: 'Montserrat';
+    color: rgb(72, 131, 75);
+    height: 50px;
+    width:200px;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 11px;
+    padding: 15px;
+    font-weight: bold;
+    border: none;
+    background-color: rgb(72, 131, 75);
+    color: rgb(241, 233, 206);
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgb(243, 221, 148);
+    transition-duration: 0.4s;
+}
+
+.day-button:hover{
+    border: 2px solid rgb(72, 131, 75);
+    background-color: rgb(241, 233, 206);
+    color: rgb(72, 131, 75);
+    box-shadow:none;
+}
+

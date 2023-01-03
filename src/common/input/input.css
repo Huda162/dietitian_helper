@@ -21,6 +21,7 @@
   .input-group > label {
     display: block;
     margin-bottom: 5px;
+    margin-top: 7px;
     font-size: 12px;
     font-weight: bold;
     text-transform: uppercase;
@@ -35,9 +36,9 @@
   
   .input-group > input:focus {
     color: #212529;
-    background-color:rgb(241, 233, 206);;
-    border-color: rgb(72, 131, 75);;
+    background-color:rgb(241, 233, 206);
+    border-color: rgb(72, 131, 75);
     outline: 0;
-    box-shadow: 0 0 10px 0.25rem rgb(72, 131, 75);;
+    box-shadow: 0 0 10px 0.25rem rgb(72, 131, 75);
   }
   

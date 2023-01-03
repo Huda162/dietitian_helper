@@ -1,0 +1,16 @@
+.container {
+    background-color: rgb(241, 233, 206);
+    height: 749px;
+    width: 100%;
+}
+
+.container > .patient-info{
+    background-color: rgb(243, 221, 148);
+    width: 1000px;
+    height: 320px;
+    box-shadow: 0 0 10px 0.25rem rgb(72, 131, 75);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+    border-radius: 5px;
+}

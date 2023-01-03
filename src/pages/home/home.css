@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Nanum+Gothic&display=swap');
+
+.home{
+display: block;
+background-color: rgb(241, 233, 206);
+height: 749px;
+width: 100%;
+padding-top: 50px;
+}
+
+.welcome{
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+}
+
+.welcome > span {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 780px;
+}
+
+.welcome > span> .app-logo{
+    display: inline-block;
+    margin-top: 50px;
+    width: 50%;   
+}
+
+.welcome > span> h1{
+    color: rgb(72, 131, 75);
+    font-size: 40px;
+    font-family: 'Montserrat';
+    margin: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.buttons-area{
+    display: flex;
+    justify-content: space-around;
+    align-content: space-around;
+    flex-wrap: wrap;
+    width: 1200px;
+    margin: auto;
+}
+
+.buttons-area > .navigation-buttons{
+    font-size: 25px;
+    font-family: 'Montserrat';
+    color: rgb(72, 131, 75);
+    height: 40px;
+    width:300px;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 11px;
+    padding: 15px;
+    padding-top: 19px;
+    font-weight: bold;
+    border: none;
+    background-color: rgb(72, 131, 75);
+    color: rgb(241, 233, 206);
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgb(243, 221, 148);
+    transition-duration: 0.4s;
+}
+
+.buttons-area > .navigation-buttons:hover{
+    border: 2px solid rgb(72, 131, 75);
+    background-color: rgb(241, 233, 206);
+    color: rgb(72, 131, 75);
+    box-shadow:none;
+}

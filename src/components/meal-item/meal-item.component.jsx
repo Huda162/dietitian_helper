@@ -14,8 +14,8 @@ const MealItem = (props) => {
                     <p>Amount: {props.item.amount}</p> */}
                 </span>
                 <span>
-                    <span className="delete" /*onClick={}*/>&times;</span>
-                    <span className="update" /*onClick={}*/>&#x270E;</span>                    
+                    <span className="delete" onClick={props.deleteItem}>&times;</span>
+                    <span className="update" onClick={props.updateItem}>&#x270E;</span>                    
                 </span>
                 
 

@@ -1,26 +1,26 @@
 import { useEffect, useState } from "react";
 import Input from "../../common/input/input.component";
-import Table from "../../common/table/table.component";
 import Header from "../../components/header/header.component";
-import Card from "../../components/meal-card/meal-card.component";
 import MealItem from "../../components/meal-item/meal-item.component";
-import Popup from "../../components/popup/popup.component";
+import PopupContent from "../../components/popup-content/popup-content.component";
 import './manage-food-table.css'
 
 
 const ManageFoodTable = (props) => {
     const [openPopupButton, setOpenPupupButton] = useState(false);
+    const [openPopupForUpdate, setOpenPopupForUpdate] = useState(false);
     const foodTable = [];
     const [foodItems, setFoodItems] = useState(foodTable);
+    const refresh = () => window.location.reload(true);
 
-    const getFoodItems = () =>{
-        const items = JSON.parse(localStorage.foodItems || '[]');
+    const getFoodItems = () => {
+        const items = JSON.parse(localStorage.foods || '[]');
         setFoodItems(items);
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         getFoodItems();
-    },foodItems)
+    }, [])
 
     const addHandler = e => {
         e.preventDefault();
@@ -37,19 +37,38 @@ const ManageFoodTable = (props) => {
             amount: amount
         };
 
-        const itemsJson = localStorage.getItem('foodItems');
+        const itemsJson = localStorage.getItem('foods');
         const items = JSON.parse(itemsJson) || [];
 
         items.push(foodItem);
 
-        localStorage.setItem('foodItems', JSON.stringify(items));
+        localStorage.setItem('foods', JSON.stringify(items));
 
         setOpenPupupButton(false);
+
+        refresh();
+
     };
 
     const handleAddClick = () => {
         setOpenPupupButton(!openPopupButton);
     };
+
+    const deleteItem = (i) => {
+        let itemsJson = JSON.parse(localStorage.getItem('foods')) || [];
+        itemsJson.splice(i, 1);
+        localStorage.setItem('foods', JSON.stringify(itemsJson));
+        refresh();
+    };
+
+    const openUpdateItem = (i) => {
+        setOpenPopupForUpdate(!openPopupForUpdate);
+    };
+
+    const updateHandler = (e) => {
+        
+    };
+
 
     return (
         <div className="page">
@@ -59,26 +78,33 @@ const ManageFoodTable = (props) => {
                 {
                     foodItems.map((item, index) => {
                         return (
-                            <MealItem item={item} key={index} />
+                            <MealItem
+                                item={item}
+                                key={index}
+                                deleteItem={() => deleteItem(index)}
+                                updateItem={() => openUpdateItem(index)}
+                            />
                         )
-                    })
-                }
+                    })}
+                 
             </div>
-            <Popup trigger={openPopupButton}>
-                <div className="content">
-                    <span className="close" onClick={handleAddClick}>&times;</span>
-                    <h3>Adding New Food Item</h3>
-                    <form onSubmit={addHandler}>
-                        <div>
-                            <Input type="text" label="Food Name" name="food" required/>
-                            <Input type="text" label="Image URL" name="image" required/>
-                            <Input type="number" label="Calories" name="calories" min={0} required/>
-                            <Input type="number" label="Amount (in grams)" name="amount" min={0} required/>
-                            <button type="submit" className="buttons" value="add">Add</button>
-                        </div>
-                    </form>
-                </div>
-            </Popup>
+            <PopupContent
+                openPopupButton={openPopupButton}
+                handleAddClick={handleAddClick}
+                addHandler={addHandler}
+                submit="Add"
+                title="Add New Food Item"
+            />
+            <PopupContent
+                openPopupButton={openPopupForUpdate}
+                handleAddClick={openUpdateItem}
+                addHandler={updateHandler}
+                submit="update"
+                title="update a food Item"
+            >
+                <Input type="text" label="Food You want To Update" name="updatedFood" />
+
+            </PopupContent>
         </div>
 
     )

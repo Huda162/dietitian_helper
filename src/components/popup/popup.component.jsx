@@ -1,12 +1,12 @@
 import './popup.css';
 
-const Popup = (props) =>{
-    return (props.trigger)?(
+const Popup = (props) => {
+    return (props.trigger) ? (
         <div className='popup'>
             <div className='content'>
-            {props.children}
+                {props.children}
             </div>
-            
+
         </div>
     ) : "";
 };

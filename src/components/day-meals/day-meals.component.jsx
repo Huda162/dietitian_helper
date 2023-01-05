@@ -3,7 +3,10 @@ import './day-meals.css';
 
 const DayMeals = (props) => {
     return(
-        <MealItem/>
+        <div className='tab'>
+            meals
+            <MealItem/>
+        </div>
     )
 }
 

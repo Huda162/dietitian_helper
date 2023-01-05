@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Nanum+Gothic&display=swap');
+
+.card-right{
+    position: relative;
+	text-align: left;
+	overflow: hidden;
+	padding: 0px;
+	height: 100%;
+	float: right;
+	width: 60%;
+    margin-top: 12px;
+}
+
+p{
+    margin: 0px;
+    font-size: 15px;
+    font-family: 'Montserrat';
+    color: rgb(72, 131, 75);
+}
+
+.card-left{
+    width: 60%;
+}
+.card-left > .food-image{
+    transition: all 0.3s ease-out;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+	height: 100%;
+	float: left;
+	width: 90%;
+	display: inline-block;
+    object-fit: cover;
+}
+
+.delete{
+    color: #aaa;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 7px;
+}
+.update{
+    color: #aaa;
+    float: right;
+    font-size: 15px;
+    font-weight: bold;
+    margin-right: 7px;
+}
+.delete:hover, .delete:focus{
+    color: black;
+    cursor: pointer;
+}
+.update:hover, .update:focus{
+    color: black;
+    cursor: pointer;
+}

@@ -1,5 +1,14 @@
-.container {
+.page {
     background-color: rgb(241, 233, 206);
     height: 749px;
     width: 100%;
+}
+
+.container {
+    background-color: rgb(241, 233, 206);
+    height: 690px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
 }

@@ -2,9 +2,9 @@ import Header from "../../components/header/header.component";
 
 const ViewProgram = (props) =>{
     return(
-        <div className="container">
+        <div className="page">
             <Header/>
-            <p>page View Program</p> 
+            <div className="container"></div>
         </div>
         
     )

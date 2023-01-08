@@ -11,4 +11,7 @@
     margin-right: auto;
     align-self: flex-end;
     justify-self: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-content: flex-start;
 }

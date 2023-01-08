@@ -1,0 +1,18 @@
+.add-icon {
+    width: 80%;
+    height: 80%;
+    margin: 10px 6px 0px 6px;
+    opacity: 55%;
+}
+
+.add-card {
+    width: 100px;
+    box-shadow: 0 0px 15px 1px rgb(72, 131, 75);
+    background: rgb(241, 233, 206);
+    text-align: center;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 0px;
+    height: 100px;
+    /* display: flex; */
+}

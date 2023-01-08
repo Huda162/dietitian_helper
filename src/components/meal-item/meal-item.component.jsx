@@ -1,4 +1,4 @@
-import Card from '../meal-card/meal-card.component';
+import Card from '../meal-card/card.component';
 import './meal-item.css';
 
 const MealItem = (props) => {

@@ -51,9 +51,6 @@
     font-weight: bold;
 }
 
-/* .right > .navigation-buttons:not(:last-child){
-    border-right: 1.5px solid rgb(72, 131, 75);
-} */
 
 .right > .navigation-buttons:hover{
     border: none;

@@ -28,14 +28,16 @@ const NewDietProgram = (props) => {
     const [wednesdayMeals, setWednesdayMeals] = useState(initialMeals);
     const [thursdayMeals, setThursdayMeals] = useState(initialMeals);
     const [fridayMeals, setFridayMeals] = useState(initialMeals);
-    const [totalSaturdayCal, setTotalSaturdayCal]= useState(0);
-    const [totalSundayCal, setTotalSundayCal]= useState(0);
-    const [totalMondayCal, setTotalMondayCal]= useState(0);
-    const [totalTuesdayCal, setTotalTuesdayCal]= useState(0);
-    const [totalWednesdayCal, setTotalWednesdayCal]= useState(0);
-    const [totalThursdayCal, setTotalThursdayCal]= useState(0);
-    const [totalFridayCal, setTotalFridayCal]= useState(0);
-    const refresh = () => window.location.reload(true);
+    let totalSaturdayCal = 0;
+    let totalSundayCal = 0;
+    let totalMondayCal = 0;
+    let totalTuesdayCal = 0;
+    let totalWednesdayCal = 0;
+    let totalThursdayCal = 0;
+    let totalFridayCal = 0;
+    let refresh = () => window.location.reload(true);
+
+
 
     const getFoodItems = () => {
         const items = JSON.parse(localStorage.foods || '[]');
@@ -56,10 +58,60 @@ const NewDietProgram = (props) => {
         setFridayMeals(fridayItems);
     };
 
+
     useEffect(() => {
         getFoodItems();
     }, []);
 
+    const calculateSaturdayCalories = () => {
+        const saturdayItems = JSON.parse(localStorage.saturdayMeals || '[]');
+        saturdayItems.forEach(meal => {
+            totalSaturdayCal = totalSaturdayCal + meal.calories;
+        })
+        return totalSaturdayCal;
+    }
+    const calculateSundayCalories = () => {
+        const sundayItems = JSON.parse(localStorage.sundayMeals || '[]');
+        sundayItems?.forEach(meal => {
+            totalSundayCal = totalSundayCal + meal.calories;
+        })
+        return totalSundayCal;
+    }
+    const calculateMondayCalories = () => {
+        const mondayItems = JSON.parse(localStorage.mondayMeals || '[]');
+        mondayItems.forEach(meal => {
+            totalMondayCal = totalMondayCal + meal.calories;
+        })
+        return totalMondayCal;
+    }
+    const calculateTuesdayCalories = () => {
+        const tuesdayItems = JSON.parse(localStorage.tuesdayMeals || '[]');
+        tuesdayItems.forEach(meal => {
+            totalTuesdayCal = totalTuesdayCal + meal.calories;
+        })
+        return totalTuesdayCal;
+    }
+    const calculateWednesdayCalories = () => {
+        const wednesdayItems = JSON.parse(localStorage.wednesdayMeals || '[]');
+        wednesdayItems.forEach(meal => {
+            totalWednesdayCal = totalWednesdayCal + meal.calories;
+        })
+        return totalWednesdayCal;
+    }
+    const calculateThursdayCalories = () => {
+        const thursdayItems = JSON.parse(localStorage.thursdayMeals || '[]');
+        thursdayItems.forEach(meal => {
+            totalThursdayCal = totalThursdayCal + meal.calories;
+        })
+        return totalThursdayCal;
+    }
+    const calculateFridayCalories = () => {
+        const fridayItems = JSON.parse(localStorage.fridayMeals || '[]');
+        fridayItems.forEach(meal => {
+            totalFridayCal = totalFridayCal + meal.calories;
+        })
+        return totalFridayCal;
+    }
     const openAddSaturdayMealPopup = () => {
         setAddToSaturdayButton(!addToSaturdayButton);
     }
@@ -315,7 +367,13 @@ const NewDietProgram = (props) => {
                                             )
                                         })}
                                 </DayMeals>
-                                <p>Total Colories: {totalSaturdayCal}</p>
+                                {
+                                    localStorage.saturdayMeals &&
+                                    <p>
+                                        Total Colories: {calculateSaturdayCalories()} &nbsp;
+                                        number of meals: {JSON.parse(localStorage.saturdayMeals).length}
+                                    </p>
+                                }
                             </div>
                         }
                         {
@@ -330,6 +388,14 @@ const NewDietProgram = (props) => {
                                             )
                                         })}
                                 </DayMeals>
+                                {
+                                    localStorage.sundayMeals &&
+                                    <p>
+                                        Total Colories: {calculateSundayCalories()} &nbsp;
+                                        number of meals: {JSON.parse(localStorage.sundayMeals)?.length}
+                                    </p>
+                                }
+
                             </div>
                         }
                         {
@@ -345,6 +411,14 @@ const NewDietProgram = (props) => {
                                             )
                                         })}
                                 </DayMeals>
+                                {
+                                    localStorage.mondayMeals &&
+                                    <p>
+                                    Total Colories: {calculateMondayCalories()} &nbsp;
+                                    number of meals: {JSON.parse(localStorage.mondayMeals).length}
+                                </p>
+                                }
+                                
                             </div>
                         }
                         {
@@ -363,6 +437,13 @@ const NewDietProgram = (props) => {
                                             )
                                         })}
                                 </DayMeals>
+                                {
+                                    localStorage.tuesdayMeals &&
+                                    <p>
+                                        Total Colories: {calculateTuesdayCalories()} &nbsp;
+                                        number of meals: {JSON.parse(localStorage.tuesdayMeals)?.length}
+                                    </p>
+                                }
                             </div>
                         }
                         {
@@ -378,6 +459,13 @@ const NewDietProgram = (props) => {
                                             )
                                         })}
                                 </DayMeals>
+                                {
+                                    localStorage.wednesdayMeals &&
+                                    <p>
+                                        Total Colories: {calculateWednesdayCalories()} &nbsp;
+                                        number of meals: {JSON.parse(localStorage.wednesdayMeals)?.length}
+                                    </p>
+                                }
                             </div>
                         }
                         {
@@ -393,6 +481,13 @@ const NewDietProgram = (props) => {
                                             )
                                         })}
                                 </DayMeals>
+                                {
+                                    localStorage.thursdayMeals &&
+                                    <p>
+                                        Total Colories: {calculateThursdayCalories()} &nbsp;
+                                        number of meals: {JSON.parse(localStorage.thursdayMeals)?.length}
+                                    </p>
+                                }
                             </div>
                         }
                         {
@@ -407,6 +502,13 @@ const NewDietProgram = (props) => {
                                             )
                                         })}
                                 </DayMeals>
+                                {
+                                    localStorage.fridayMeals &&
+                                    <p>
+                                        Total Colories: {calculateFridayCalories()} &nbsp;
+                                        number of meals: {JSON.parse(localStorage.fridayMeals)?.length}
+                                    </p>
+                                }
                             </div>
                         }
 

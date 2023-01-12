@@ -1,7 +1,7 @@
 .tab {
     order: 9;
     flex-grow: 1;
-    width: 650%;
+    width: 93%;
     height: 88.5%;
     display: flex;
     padding: 1rem;
@@ -14,4 +14,26 @@
     flex-wrap: wrap;
     gap: 30px;
     align-content: flex-start;
+    overflow-y: scroll;
 }
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgb(241, 233, 206);
+    padding: 1px;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(72, 131, 75);
+    box-shadow: inset 0 0 10px rgb(241, 233, 206);
+
+    border-radius: 5px;
+}
+
+/* ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+} */

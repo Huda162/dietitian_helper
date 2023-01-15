@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import Input from "../../common/input/input.component";
 import Select from "../../common/select/select.component";
 import DayMeals from "../../components/day-meals/day-meals.component";
@@ -9,6 +8,7 @@ import DAYS from "../../data/days";
 import './new-diet-program.css';
 import CITIES from "../../data/cities";
 import PopupMeal from "../../components/popup-meal/popup-meal.component";
+import { useNavigate } from "react-router-dom";
 
 const NewDietProgram = (props) => {
     const [addToSaturdayButton, setAddToSaturdayButton] = useState(false);
@@ -28,13 +28,8 @@ const NewDietProgram = (props) => {
     const [wednesdayMeals, setWednesdayMeals] = useState(initialMeals);
     const [thursdayMeals, setThursdayMeals] = useState(initialMeals);
     const [fridayMeals, setFridayMeals] = useState(initialMeals);
-    let totalSaturdayCal = 0;
-    let totalSundayCal = 0;
-    let totalMondayCal = 0;
-    let totalTuesdayCal = 0;
-    let totalWednesdayCal = 0;
-    let totalThursdayCal = 0;
-    let totalFridayCal = 0;
+    const [totalCalories, setTotalCalories] = useState(0);
+    const onNavigate=useNavigate();
     let refresh = () => window.location.reload(true);
 
 
@@ -61,57 +56,74 @@ const NewDietProgram = (props) => {
 
     useEffect(() => {
         getFoodItems();
+        calculateTotalCalories();
+        console.log(totalCalories);
     }, []);
 
     const calculateSaturdayCalories = () => {
         const saturdayItems = JSON.parse(localStorage.saturdayMeals || '[]');
-        saturdayItems.forEach(meal => {
+        let totalSaturdayCal = 0;
+        saturdayItems?.forEach(meal => {
             totalSaturdayCal = totalSaturdayCal + meal.calories;
         })
-        return totalSaturdayCal;
+        return Math.round(totalSaturdayCal);
     }
     const calculateSundayCalories = () => {
         const sundayItems = JSON.parse(localStorage.sundayMeals || '[]');
+        let totalSundayCal = 0;
         sundayItems?.forEach(meal => {
             totalSundayCal = totalSundayCal + meal.calories;
         })
-        return totalSundayCal;
+        return Math.round(totalSundayCal);
     }
     const calculateMondayCalories = () => {
         const mondayItems = JSON.parse(localStorage.mondayMeals || '[]');
-        mondayItems.forEach(meal => {
+        let totalMondayCal = 0;
+        mondayItems?.forEach(meal => {
             totalMondayCal = totalMondayCal + meal.calories;
         })
-        return totalMondayCal;
+        return Math.round(totalMondayCal);
     }
     const calculateTuesdayCalories = () => {
         const tuesdayItems = JSON.parse(localStorage.tuesdayMeals || '[]');
-        tuesdayItems.forEach(meal => {
+        let totalTuesdayCal = 0;
+        tuesdayItems?.forEach(meal => {
             totalTuesdayCal = totalTuesdayCal + meal.calories;
         })
-        return totalTuesdayCal;
+        return Math.round(totalTuesdayCal);
     }
     const calculateWednesdayCalories = () => {
         const wednesdayItems = JSON.parse(localStorage.wednesdayMeals || '[]');
-        wednesdayItems.forEach(meal => {
+        let totalWednesdayCal = 0;
+        wednesdayItems?.forEach(meal => {
             totalWednesdayCal = totalWednesdayCal + meal.calories;
         })
-        return totalWednesdayCal;
+        return Math.round(totalWednesdayCal);
     }
     const calculateThursdayCalories = () => {
         const thursdayItems = JSON.parse(localStorage.thursdayMeals || '[]');
-        thursdayItems.forEach(meal => {
+        let totalThursdayCal = 0;
+        thursdayItems?.forEach(meal => {
             totalThursdayCal = totalThursdayCal + meal.calories;
         })
-        return totalThursdayCal;
+        return Math.round(totalThursdayCal);
     }
     const calculateFridayCalories = () => {
         const fridayItems = JSON.parse(localStorage.fridayMeals || '[]');
-        fridayItems.forEach(meal => {
+        let totalFridayCal = 0;
+        fridayItems?.forEach(meal => {
             totalFridayCal = totalFridayCal + meal.calories;
         })
-        return totalFridayCal;
+        return Math.round(totalFridayCal);
     }
+
+    const calculateTotalCalories = () => {
+        const total = calculateSaturdayCalories() + calculateSundayCalories() + calculateMondayCalories() + calculateTuesdayCalories() + calculateWednesdayCalories() + calculateThursdayCalories() + calculateFridayCalories();
+        setTotalCalories(Math.round(total));
+
+        // const calJson = localStorage.getItem('totalCaloriesForEachPatient');
+    }
+
     const openAddSaturdayMealPopup = () => {
         setAddToSaturdayButton(!addToSaturdayButton);
     }
@@ -140,14 +152,15 @@ const NewDietProgram = (props) => {
 
     const addToSaturday = (e) => {
         e.preventDefault();
-        const food = e.target.food.value;
+        const foodIndex = e.target.food.value;
         const amount = Number(e.target.amount.value);
-        const selectedMeal = meals.filter((meal, index) => index == food)
+        const selectedMeal = meals.filter((meal, index) => index == foodIndex);
+        const foodName = selectedMeal[0].food;
         const image = selectedMeal[0].image;
         const calories = selectedMeal[0].calories / selectedMeal[0].amount * amount;
         const mealItem = {
             id: Date.now(),
-            food: food,
+            food: foodName,
             image: image,
             calories: calories,
             amount: amount
@@ -322,18 +335,68 @@ const NewDietProgram = (props) => {
 
     };
 
+    const submitHandler = (e) => {
+        e.preventDefault();
+
+        const name = e.target.name.value;
+        const phone = e.target.phone.value;
+        const email = e.target.email.value;
+        const dob = e.target.dob.value;
+        const city = e.target.city.value;
+
+        const patient = {
+            name: name,
+            phone: phone,
+            email: email,
+            dob: dob,
+            city: city,
+            saturdayMeals: saturdayMeals,
+            sundayMeals: sundayMeals,
+            mondayMeals: mondayMeals,
+            tuesdayMeals: tuesdayMeals,
+            wednesdayMeals: wednesdayMeals,
+            thursdayMeals: thursdayMeals,
+            fridayMeals: fridayMeals,
+            totalCalories: totalCalories
+        }
+
+        const itemsJson = localStorage.getItem('patients');
+        const patients = JSON.parse(itemsJson) || [];
+
+        patients.push(patient);
+
+        localStorage.setItem('patients', JSON.stringify(patients));
+
+        let itemsToRemove = [
+            'saturdayMeals',
+            'sundayMeals',
+            'mondayMeals',
+            'tuesdayMeals',
+            'wednesdayMeals',
+            'thursdayMeals',
+            'fridayMeals'
+        ]
+
+        itemsToRemove.map((item)=>{
+            localStorage.removeItem(item);
+        })
+
+        onNavigate('/view-program');
+    };
+
     return (
 
         <div className="page">
             <Header />
-            <form >
+            <form onSubmit={submitHandler}>
                 <div className="top-container">
                     <div className="patient-info">
-                        <Input label="Name" />
-                        <Input label="Phone" type="number" />
-                        <Input label="Email" />
-                        <Input label="Date of Birth" type="datetime-local" />
-                        <Select label="City">
+                        <Input label="Name" name="name" />
+                        <Input label="Phone" type="number" name="phone" />
+                        <Input label="Email" name="email" />
+                        <Input label="Date of Birth" type="date" name="dob" />
+                        <Select label="City" name="city" defaultValue={CITIES[0]}
+>
                             {
                                 CITIES.map((city, index) => {
                                     return (<option key={index}>{city}</option>);
@@ -401,7 +464,6 @@ const NewDietProgram = (props) => {
                         {
                             chosedDay === DAYS[2] &&
                             <div>
-
                                 <DayMeals openAddDayMealPopup={openAddMondayMealPopup} >
                                     {
                                         mondayMeals.map((meal, index) => {
@@ -414,26 +476,22 @@ const NewDietProgram = (props) => {
                                 {
                                     localStorage.mondayMeals &&
                                     <p>
-                                    Total Colories: {calculateMondayCalories()} &nbsp;
-                                    number of meals: {JSON.parse(localStorage.mondayMeals).length}
-                                </p>
+                                        Total Colories: {calculateMondayCalories()} &nbsp;
+                                        number of meals: {JSON.parse(localStorage.mondayMeals)?.length}
+                                    </p>
                                 }
-                                
+
                             </div>
                         }
                         {
                             chosedDay === DAYS[3] &&
                             <div>
-
                                 <DayMeals openAddDayMealPopup={openAddTuesdayMealPopup} >
                                     {
                                         tuesdayMeals.map((meal, index) => {
                                             return (
-                                                <div>
-                                                    <MealItem item={meal}
-                                                        key={index} />
-                                                </div>
-
+                                                <MealItem item={meal}
+                                                    key={index} />
                                             )
                                         })}
                                 </DayMeals>
@@ -515,7 +573,7 @@ const NewDietProgram = (props) => {
                     </div>
                 </div>
                 <div className="buttom-container">
-                    <button type="submit" className="buttons">Add Patient</button>
+                    <button type="submit" className="buttons" >Add Patient</button>
                 </div>
             </form>
             <PopupMeal

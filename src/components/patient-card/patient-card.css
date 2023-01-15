@@ -1,0 +1,23 @@
+
+.icons-container{
+    width: 70px;
+}
+
+.info-container{
+    width: 200px;
+    padding-top: 10px;
+}
+
+.icon{
+    color: #749b76;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 7px;
+    margin-top: 5px;
+}
+
+.icon:hover, .icon:focus{
+    color: #48834b;
+    cursor: pointer;
+}

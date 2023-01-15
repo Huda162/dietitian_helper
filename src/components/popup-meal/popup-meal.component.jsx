@@ -37,7 +37,8 @@ const PopupMeal = (props) => {
                 <h3>{props.title}</h3>
                 <form onSubmit={props.addHandler}>
                     <div>
-                        <Select type="text" label="Meal" name="food" onChange={chooseMeal}>
+                        <Select type="text" label="Meal" name="food" onChange={chooseMeal} defaultValue={meals[0]}
+>
                             {
                                 meals.map((meal, index) => {
                                     return (
@@ -55,7 +56,7 @@ const PopupMeal = (props) => {
                                     <img src={meals[selectedMeal].image} alt="food-image" className='food-image'/>
                                 </span>
                                 <span className='card-right'>
-                                    <p>Total Calories: {meals[selectedMeal].calories/meals[selectedMeal].amount}*{amount} = {amount * meals[selectedMeal].calories/meals[selectedMeal].amount}</p>
+                                    <p>Total Calories: {Math.round(meals[selectedMeal].calories/meals[selectedMeal].amount)}*{amount} = {amount * meals[selectedMeal].calories/meals[selectedMeal].amount}</p>
                                 </span>
                             </Card>
                             : (<div></div>)}

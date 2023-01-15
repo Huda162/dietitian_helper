@@ -6,9 +6,13 @@
 
 .container {
     background-color: rgb(241, 233, 206);
-    height: 690px;
+    height: 110px;
     width: 80%;
     display: flex;
-    justify-content: space-between;
-    align-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-content: flex-start;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
 }

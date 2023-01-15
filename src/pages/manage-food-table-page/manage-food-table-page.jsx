@@ -3,6 +3,7 @@ import Input from "../../common/input/input.component";
 import Header from "../../components/header/header.component";
 import MealItem from "../../components/meal-item/meal-item.component";
 import PopupContent from "../../components/popup-content/popup-content.component";
+import PopupUpdate from "../../components/popup-update/popup-update.component";
 import './manage-food-table.css'
 
 
@@ -63,10 +64,65 @@ const ManageFoodTable = (props) => {
 
     const openUpdateItem = (i) => {
         setOpenPopupForUpdate(!openPopupForUpdate);
+        const itemToUpdate = foodItems.filter((meal, index) =>  index == i )
+        localStorage.setItem('temporaryItem', JSON.stringify(itemToUpdate));
     };
 
-    const updateHandler = (e) => {
-        
+    const nameUpdateHandler = (e) => {
+        e.preventDefault();
+        const newFood = e.target.food.value;
+        let itemToUpdate = JSON.parse(localStorage.getItem('temporaryItem')) || [];
+        let itemsJson = JSON.parse(localStorage.getItem('foods')) || [];
+        itemsJson.forEach((item, index) => { 
+            if(itemToUpdate[0].id== item.id){
+                item.food=newFood;
+            }   
+        });
+        localStorage.setItem('foods', JSON.stringify(itemsJson));
+        localStorage.removeItem('temporaryItem')
+        refresh();
+    };
+    const imageUpdateHandler = (e) => {
+        e.preventDefault();
+        const newImage = e.target.image.value;
+        let itemToUpdate = JSON.parse(localStorage.getItem('temporaryItem')) || [];
+        let itemsJson = JSON.parse(localStorage.getItem('foods')) || [];
+        itemsJson.forEach((item, index) => { 
+            if(itemToUpdate[0].id== item.id){
+                item.image=newImage;
+            }   
+        });
+        localStorage.setItem('foods', JSON.stringify(itemsJson));
+        localStorage.removeItem('temporaryItem')
+        refresh();
+    };
+    const caloriesUpdateHandler = (e) => {
+        e.preventDefault();
+        const newCalories = e.target.calories.value;
+        let itemToUpdate = JSON.parse(localStorage.getItem('temporaryItem')) || [];
+        let itemsJson = JSON.parse(localStorage.getItem('foods')) || [];
+        itemsJson.forEach((item, index) => { 
+            if(itemToUpdate[0].id== item.id){
+                item.calories=newCalories;
+            }   
+        });
+        localStorage.setItem('foods', JSON.stringify(itemsJson));
+        localStorage.removeItem('temporaryItem')
+        refresh();
+    };
+    const amountUpdateHandler = (e) => {
+        e.preventDefault();
+        const newAmount = e.target.amount.value;
+        let itemToUpdate = JSON.parse(localStorage.getItem('temporaryItem')) || [];
+        let itemsJson = JSON.parse(localStorage.getItem('foods')) || [];
+        itemsJson.forEach((item, index) => { 
+            if(itemToUpdate[0].id== item.id){
+                item.amount=newAmount;
+            }   
+        });
+        localStorage.setItem('foods', JSON.stringify(itemsJson));
+        localStorage.removeItem('temporaryItem')
+        refresh();
     };
 
 
@@ -86,7 +142,7 @@ const ManageFoodTable = (props) => {
                             />
                         )
                     })}
-                 
+
             </div>
             <PopupContent
                 openPopupButton={openPopupButton}
@@ -95,16 +151,14 @@ const ManageFoodTable = (props) => {
                 submit="Add"
                 title="Add New Food Item"
             />
-            <PopupContent
+            <PopupUpdate
                 openPopupButton={openPopupForUpdate}
                 handleAddClick={openUpdateItem}
-                addHandler={updateHandler}
-                submit="update"
-                title="update a food Item"
-            >
-                <Input type="text" label="Food You want To Update" name="updatedFood" />
-
-            </PopupContent>
+                nameUpdateHandler={nameUpdateHandler}
+                imageUpdateHandler={imageUpdateHandler}
+                caloriesUpdateHandler={caloriesUpdateHandler}
+                amountUpdateHandler={amountUpdateHandler}
+            />
         </div>
 
     )

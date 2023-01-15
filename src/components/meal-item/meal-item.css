@@ -33,25 +33,16 @@ p{
     object-fit: cover;
 }
 
-.delete{
-    color: #aaa;
+.icon{
+    color: #749b76;
     float: right;
     font-size: 20px;
     font-weight: bold;
     margin-right: 7px;
+    margin-top: 5px;
 }
-.update{
-    color: #aaa;
-    float: right;
-    font-size: 15px;
-    font-weight: bold;
-    margin-right: 7px;
-}
-.delete:hover, .delete:focus{
-    color: black;
-    cursor: pointer;
-}
-.update:hover, .update:focus{
-    color: black;
+
+.icon:hover, .icon:focus{
+    color: #48834b;
     cursor: pointer;
 }

@@ -1,7 +1,5 @@
-import Card from '../../meal-card/card.component';
+import Card from '../meal-card/card.component';
 import './patient-card.css';
-import pdf from './../../assets/pdf-file.png';
-import trash from './../../assets/trash.png';
 import { FilePdf, Trash } from "phosphor-react"
 
 const PatientCard = (props) => {

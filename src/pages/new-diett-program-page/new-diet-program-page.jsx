@@ -18,7 +18,7 @@ const NewDietProgram = (props) => {
     const [addToWednesdayButton, setAddToWednesdayButton] = useState(false);
     const [addToThursdayButton, setAddToThursdayButton] = useState(false);
     const [addToFridayButton, setAddToFridayButton] = useState(false);
-    const [chosedDay, setChosedDay] = useState("Saturday");
+    const [chosedDay, setChosedDay] = useState("");
     let initialMeals = [];
     const [meals, setMeals] = useState(initialMeals);
     const [saturdayMeals, setSaturdayMeals] = useState(initialMeals);

@@ -1,5 +1,5 @@
 import Input from '../../common/input/input.component';
-import Popup from '../popup/popup.component';
+import Popup from '../popups/popup/popup.component';
 import './popup-update.css';
 
 const PopupUpdate = (props) => {

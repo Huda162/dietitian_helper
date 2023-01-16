@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import Input from "../../common/input/input.component";
 import Header from "../../components/header/header.component";
-import MealItem from "../../components/meal-item/meal-item.component";
-import PopupContent from "../../components/popup-content/popup-content.component";
-import PopupUpdate from "../../components/popup-update/popup-update.component";
+import MealItem from "../../components/cards/meal-item/meal-item.component";
+import PopupContent from "../../components/popups/popup-content/popup-content.component";
+import PopupUpdate from "../../components/popups/popup-update/popup-update.component";
 import './manage-food-table.css'
 
 

@@ -3,11 +3,11 @@ import Input from "../../common/input/input.component";
 import Select from "../../common/select/select.component";
 import DayMeals from "../../components/day-meals/day-meals.component";
 import Header from "../../components/header/header.component";
-import MealItem from "../../components/meal-item/meal-item.component";
+import MealItem from "../../components/cards/meal-item/meal-item.component";
 import DAYS from "../../data/days";
 import './new-diet-program.css';
 import CITIES from "../../data/cities";
-import PopupMeal from "../../components/popup-meal/popup-meal.component";
+import PopupMeal from "../../components/popups/popup-meal/popup-meal.component";
 import { useNavigate } from "react-router-dom";
 
 const NewDietProgram = (props) => {

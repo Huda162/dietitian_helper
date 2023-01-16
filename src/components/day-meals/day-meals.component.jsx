@@ -1,5 +1,4 @@
-import AddCard from '../add-card/add-card.component';
-import MealItem from '../meal-item/meal-item.component';
+import AddCard from '../cards/add-card/add-card.component';
 import './day-meals.css';
 
 const DayMeals = (props) => {

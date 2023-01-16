@@ -1,9 +1,8 @@
-import { getValue } from '@testing-library/user-event/dist/utils';
 import { useEffect, useState } from 'react';
-import Input from '../../common/input/input.component';
-import Select from '../../common/select/select.component';
-import Card from '../meal-card/card.component';
-import Popup from '../popups/popup/popup.component';
+import Input from '../../../common/input/input.component';
+import Select from '../../../common/select/select.component';
+import Card from '../../cards/meal-card/card.component';
+import Popup from '../popup/popup.component';
 import './popup-meal.css';
 
 const PopupMeal = (props) => {

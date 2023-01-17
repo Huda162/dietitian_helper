@@ -10,9 +10,9 @@ import './manage-food-table.css'
 const ManageFoodTable = (props) => {
     const [openPopupButton, setOpenPupupButton] = useState(false);
     const [openPopupForUpdate, setOpenPopupForUpdate] = useState(false);
+    const [triggerUpdate, setTriggerUpdate] = useState(false);
     const foodTable = [];
     const [foodItems, setFoodItems] = useState(foodTable);
-    const refresh = () => window.location.reload(true);
 
     const getFoodItems = () => {
         const items = JSON.parse(localStorage.foods || '[]');
@@ -21,7 +21,14 @@ const ManageFoodTable = (props) => {
 
     useEffect(() => {
         getFoodItems();
-    }, [])
+    }, []);
+
+    useEffect(()=>{
+        if(triggerUpdate){
+            getFoodItems();
+            setTriggerUpdate(false);
+        }
+    },[triggerUpdate])
 
     const addHandler = e => {
         e.preventDefault();
@@ -47,7 +54,7 @@ const ManageFoodTable = (props) => {
 
         setOpenPupupButton(false);
 
-        refresh();
+        setTriggerUpdate(true);
 
     };
 
@@ -59,7 +66,7 @@ const ManageFoodTable = (props) => {
         let itemsJson = JSON.parse(localStorage.getItem('foods')) || [];
         itemsJson.splice(i, 1);
         localStorage.setItem('foods', JSON.stringify(itemsJson));
-        refresh();
+        setTriggerUpdate(true);
     };
 
     const openUpdateItem = (i) => {
@@ -80,7 +87,7 @@ const ManageFoodTable = (props) => {
         });
         localStorage.setItem('foods', JSON.stringify(itemsJson));
         localStorage.removeItem('temporaryItem')
-        refresh();
+        setTriggerUpdate(true);
     };
     const imageUpdateHandler = (e) => {
         e.preventDefault();
@@ -94,7 +101,7 @@ const ManageFoodTable = (props) => {
         });
         localStorage.setItem('foods', JSON.stringify(itemsJson));
         localStorage.removeItem('temporaryItem')
-        refresh();
+        setTriggerUpdate(true);
     };
     const caloriesUpdateHandler = (e) => {
         e.preventDefault();
@@ -108,7 +115,7 @@ const ManageFoodTable = (props) => {
         });
         localStorage.setItem('foods', JSON.stringify(itemsJson));
         localStorage.removeItem('temporaryItem')
-        refresh();
+        setTriggerUpdate(true);
     };
     const amountUpdateHandler = (e) => {
         e.preventDefault();
@@ -122,7 +129,7 @@ const ManageFoodTable = (props) => {
         });
         localStorage.setItem('foods', JSON.stringify(itemsJson));
         localStorage.removeItem('temporaryItem')
-        refresh();
+        setTriggerUpdate(true);
     };
 
 

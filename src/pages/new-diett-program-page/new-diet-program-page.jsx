@@ -11,14 +11,9 @@ import PopupMeal from "../../components/popups/popup-meal/popup-meal.component";
 import { useNavigate } from "react-router-dom";
 
 const NewDietProgram = (props) => {
-    const [addToSaturdayButton, setAddToSaturdayButton] = useState(false);
-    const [addToSundayButton, setAddToSundayButton] = useState(false);
-    const [addToMondayButton, setAddToMondayButton] = useState(false);
-    const [addToTuesdayButton, setAddToTuesdayButton] = useState(false);
-    const [addToWednesdayButton, setAddToWednesdayButton] = useState(false);
-    const [addToThursdayButton, setAddToThursdayButton] = useState(false);
-    const [addToFridayButton, setAddToFridayButton] = useState(false);
+    const [addToDayButton, setAddToDayButton] = useState(false);
     const [chosedDay, setChosedDay] = useState("");
+    const [triggerUpdate, setTriggerUpdate] = useState(false);
     let initialMeals = [];
     const [meals, setMeals] = useState(initialMeals);
     const [saturdayMeals, setSaturdayMeals] = useState(initialMeals);
@@ -29,128 +24,105 @@ const NewDietProgram = (props) => {
     const [thursdayMeals, setThursdayMeals] = useState(initialMeals);
     const [fridayMeals, setFridayMeals] = useState(initialMeals);
     const [totalCalories, setTotalCalories] = useState(0);
-    const onNavigate=useNavigate();
-    let refresh = () => window.location.reload(true);
-
-
+    const onNavigate = useNavigate();
 
     const getFoodItems = () => {
-        const items = JSON.parse(localStorage.foods || '[]');
-        const saturdayItems = JSON.parse(localStorage.saturdayMeals || '[]');
-        const sundayItems = JSON.parse(localStorage.sundayMeals || '[]');
-        const mondayItems = JSON.parse(localStorage.mondayMeals || '[]');
-        const tuesdayItems = JSON.parse(localStorage.tuesdayMeals || '[]');
-        const wednesdayItems = JSON.parse(localStorage.wednesdayMeals || '[]');
-        const thursdayItems = JSON.parse(localStorage.thursdayMeals || '[]');
-        const fridayItems = JSON.parse(localStorage.fridayMeals || '[]');
-        setMeals(items);
-        setSaturdayMeals(saturdayItems);
-        setSundayMeals(sundayItems);
-        setMondayMeals(mondayItems);
-        setTuesdayMeals(tuesdayItems);
-        setWednesdayMeals(wednesdayItems);
-        setThursdayMeals(thursdayItems);
-        setFridayMeals(fridayItems);
+        setMeals(JSON.parse(localStorage.foods || '[]'));
     };
 
 
     useEffect(() => {
         getFoodItems();
-        calculateTotalCalories();
+        // calculateTotalCalories();
         console.log(totalCalories);
     }, []);
 
-    const calculateSaturdayCalories = () => {
-        const saturdayItems = JSON.parse(localStorage.saturdayMeals || '[]');
-        let totalSaturdayCal = 0;
-        saturdayItems?.forEach(meal => {
-            totalSaturdayCal = totalSaturdayCal + meal.calories;
-        })
-        return Math.round(totalSaturdayCal);
-    }
-    const calculateSundayCalories = () => {
-        const sundayItems = JSON.parse(localStorage.sundayMeals || '[]');
-        let totalSundayCal = 0;
-        sundayItems?.forEach(meal => {
-            totalSundayCal = totalSundayCal + meal.calories;
-        })
-        return Math.round(totalSundayCal);
-    }
-    const calculateMondayCalories = () => {
-        const mondayItems = JSON.parse(localStorage.mondayMeals || '[]');
-        let totalMondayCal = 0;
-        mondayItems?.forEach(meal => {
-            totalMondayCal = totalMondayCal + meal.calories;
-        })
-        return Math.round(totalMondayCal);
-    }
-    const calculateTuesdayCalories = () => {
-        const tuesdayItems = JSON.parse(localStorage.tuesdayMeals || '[]');
-        let totalTuesdayCal = 0;
-        tuesdayItems?.forEach(meal => {
-            totalTuesdayCal = totalTuesdayCal + meal.calories;
-        })
-        return Math.round(totalTuesdayCal);
-    }
-    const calculateWednesdayCalories = () => {
-        const wednesdayItems = JSON.parse(localStorage.wednesdayMeals || '[]');
-        let totalWednesdayCal = 0;
-        wednesdayItems?.forEach(meal => {
-            totalWednesdayCal = totalWednesdayCal + meal.calories;
-        })
-        return Math.round(totalWednesdayCal);
-    }
-    const calculateThursdayCalories = () => {
-        const thursdayItems = JSON.parse(localStorage.thursdayMeals || '[]');
-        let totalThursdayCal = 0;
-        thursdayItems?.forEach(meal => {
-            totalThursdayCal = totalThursdayCal + meal.calories;
-        })
-        return Math.round(totalThursdayCal);
-    }
-    const calculateFridayCalories = () => {
-        const fridayItems = JSON.parse(localStorage.fridayMeals || '[]');
-        let totalFridayCal = 0;
-        fridayItems?.forEach(meal => {
-            totalFridayCal = totalFridayCal + meal.calories;
-        })
-        return Math.round(totalFridayCal);
+    useEffect(() => {
+        if (triggerUpdate) {
+            getFoodItems();
+            setTriggerUpdate(false);
+        }
+    }, [triggerUpdate]);
+
+    const calculateDayCalories = () => {
+        let totalDayCal = 0;
+        switch (chosedDay) {
+            case 'Saturday':
+                saturdayMeals.forEach(meal => {
+                    totalDayCal = totalDayCal + meal.calories;
+                })
+                return Math.round(totalDayCal);
+            case 'Sunday':
+                sundayMeals.forEach(meal => {
+                    totalDayCal = totalDayCal + meal.calories;
+                })
+                return Math.round(totalDayCal);
+            case 'Monday':
+                mondayMeals.forEach(meal => {
+                    totalDayCal = totalDayCal + meal.calories;
+                })
+                return Math.round(totalDayCal);
+            case 'Tuesday':
+                tuesdayMeals.forEach(meal => {
+                    totalDayCal = totalDayCal + meal.calories;
+                })
+                return Math.round(totalDayCal);
+            case 'Wednesday':
+                wednesdayMeals.forEach(meal => {
+                    totalDayCal = totalDayCal + meal.calories;
+                })
+                return Math.round(totalDayCal);
+            case 'Thursday':
+                thursdayMeals.forEach(meal => {
+                    totalDayCal = totalDayCal + meal.calories;
+                })
+                return Math.round(totalDayCal);
+            case 'Friday':
+                fridayMeals.forEach(meal => {
+                    totalDayCal = totalDayCal + meal.calories;
+                })
+                return Math.round(totalDayCal);
+            default:
+                break;
+        }
     }
 
     const calculateTotalCalories = () => {
-        const total = calculateSaturdayCalories() + calculateSundayCalories() + calculateMondayCalories() + calculateTuesdayCalories() + calculateWednesdayCalories() + calculateThursdayCalories() + calculateFridayCalories();
+        let total = 0;
+        saturdayMeals.forEach(meal => {
+            total = total + meal.calories;
+        });
+        sundayMeals.forEach(meal => {
+            total = total + meal.calories;
+        });
+        mondayMeals.forEach(meal => {
+            total = total + meal.calories;
+        });
+        tuesdayMeals.forEach(meal => {
+            total = total + meal.calories;
+        });
+        wednesdayMeals.forEach(meal => {
+            total = total + meal.calories;
+        });
+        thursdayMeals.forEach(meal => {
+            total = total + meal.calories;
+        });
+        fridayMeals.forEach(meal => {
+            total = total + meal.calories;
+        });
         setTotalCalories(Math.round(total));
-
-        // const calJson = localStorage.getItem('totalCaloriesForEachPatient');
     }
 
-    const openAddSaturdayMealPopup = () => {
-        setAddToSaturdayButton(!addToSaturdayButton);
-    }
-    const openAddSundayMealPopup = () => {
-        setAddToSundayButton(!addToSundayButton);
-    }
-    const openAddMondayMealPopup = () => {
-        setAddToMondayButton(!addToMondayButton);
-    }
-    const openAddTuesdayMealPopup = () => {
-        setAddToTuesdayButton(!addToTuesdayButton);
-    }
-    const openAddWednesdayMealPopup = () => {
-        setAddToWednesdayButton(!addToWednesdayButton);
-    }
-    const openAddThursdayMealPopup = () => {
-        setAddToThursdayButton(!addToThursdayButton);
-    }
-    const openAddFridayMealPopup = () => {
-        setAddToFridayButton(!addToFridayButton);
+
+    const openAddDayMealPopup = () => {
+        setAddToDayButton(!addToDayButton);
     }
 
     const ChooseDayHandler = (e) => {
         setChosedDay(e.target.value);
     }
 
-    const addToSaturday = (e) => {
+    const addDayMeal = (e) => {
         e.preventDefault();
         const foodIndex = e.target.food.value;
         const amount = Number(e.target.amount.value);
@@ -166,184 +138,50 @@ const NewDietProgram = (props) => {
             amount: amount
         };
 
+        switch (chosedDay) {
+            case 'Saturday':
+                const satAfterAddition = [...saturdayMeals, mealItem];
+                setSaturdayMeals(satAfterAddition);
+                break;
+            case 'Sunday':
+                const sunAfterAddition = [...sundayMeals, mealItem];
+                setSundayMeals(sunAfterAddition); 
+                break;
+            case 'Monday':
+                const monAfterAddition = [...mondayMeals, mealItem];
+                setMondayMeals(monAfterAddition); 
+                break;
+            case 'Tuesday':
+                const tueAfterAddition = [...tuesdayMeals, mealItem];
+                setTuesdayMeals(tueAfterAddition); 
+                break;
+            case 'Wednesday':
+                const wenAfterAddition = [...wednesdayMeals, mealItem];
+                setWednesdayMeals(wenAfterAddition); 
+                break;
+            case 'Thursday':
+                const thuAfterAddition = [...thursdayMeals, mealItem];
+                setThursdayMeals(thuAfterAddition); 
+                break;
+            case 'Friday':
+                const friAfterAddition = [...fridayMeals, mealItem];
+                setFridayMeals(friAfterAddition); 
+                break;
+            default:
+                break;
+        }
 
-        const itemsJson = localStorage.getItem('saturdayMeals');
-        const items = JSON.parse(itemsJson) || [];
-
-        items.push(mealItem);
-
-        localStorage.setItem('saturdayMeals', JSON.stringify(items));
-        openAddSaturdayMealPopup();
-        refresh();
-
-    };
-    const addToSunday = (e) => {
-        e.preventDefault();
-        const food = e.target.food.value;
-        const amount = Number(e.target.amount.value);
-
-        const selectedMeal = meals.filter((meal, index) => index == food)
-        const image = selectedMeal[0].image;
-        const calories = selectedMeal[0].calories / selectedMeal[0].amount * amount;
-        const mealItem = {
-            id: Date.now(),
-            food: food,
-            image: image,
-            calories: calories,
-            amount: amount
-        };
-
-        const itemsJson = localStorage.getItem('sundayMeals');
-        const items = JSON.parse(itemsJson) || [];
-
-        items.push(mealItem);
-
-        localStorage.setItem('sundayMeals', JSON.stringify(items));
-        openAddSundayMealPopup();
-        refresh();
-
-    };
-    const addToMonday = (e) => {
-        e.preventDefault();
-        const food = e.target.food.value;
-        const amount = Number(e.target.amount.value);
-
-        const selectedMeal = meals.filter((meal, index) => index == food)
-        const image = selectedMeal[0].image;
-        const calories = selectedMeal[0].calories / selectedMeal[0].amount * amount;
-        const mealItem = {
-            id: Date.now(),
-            food: food,
-            image: image,
-            calories: calories,
-            amount: amount
-        };
-
-        const itemsJson = localStorage.getItem('mondayMeals');
-        const items = JSON.parse(itemsJson) || [];
-
-        items.push(mealItem);
-
-        localStorage.setItem('mondayMeals', JSON.stringify(items));
-        openAddMondayMealPopup();
-        refresh();
-
-    };
-    const addToTuesday = (e) => {
-        e.preventDefault();
-        const food = e.target.food.value;
-        const amount = Number(e.target.amount.value);
-
-        const selectedMeal = meals.filter((meal, index) => index == food)
-        const image = selectedMeal[0].image;
-        const calories = selectedMeal[0].calories / selectedMeal[0].amount * amount;
-        const mealItem = {
-            id: Date.now(),
-            food: food,
-            image: image,
-            calories: calories,
-            amount: amount
-        };
-
-
-        const itemsJson = localStorage.getItem('tuesdayMeals');
-        const items = JSON.parse(itemsJson) || [];
-
-        items.push(mealItem);
-
-        localStorage.setItem('tuesdayMeals', JSON.stringify(items));
-        openAddTuesdayMealPopup();
-        refresh();
-
-    };
-    const addToWednesday = (e) => {
-        e.preventDefault();
-        const food = e.target.food.value;
-        const amount = Number(e.target.amount.value);
-
-        const selectedMeal = meals.filter((meal, index) => index == food)
-        const image = selectedMeal[0].image;
-        const calories = selectedMeal[0].calories / selectedMeal[0].amount * amount;
-        const mealItem = {
-            id: Date.now(),
-            food: food,
-            image: image,
-            calories: calories,
-            amount: amount
-        };
-
-        const itemsJson = localStorage.getItem('wednesdayMeals');
-        const items = JSON.parse(itemsJson) || [];
-
-        items.push(mealItem);
-
-        localStorage.setItem('wednesdayMeals', JSON.stringify(items));
-        openAddWednesdayMealPopup();
-        refresh();
-
-    };
-    const addToThursday = (e) => {
-        e.preventDefault();
-        const food = e.target.food.value;
-        const amount = Number(e.target.amount.value);
-
-        const selectedMeal = meals.filter((meal, index) => index == food)
-        const image = selectedMeal[0].image;
-        const calories = selectedMeal[0].calories / selectedMeal[0].amount * amount;
-        const mealItem = {
-            id: Date.now(),
-            food: food,
-            image: image,
-            calories: calories,
-            amount: amount
-        };
-
-        const itemsJson = localStorage.getItem('thursdayMeals');
-        const items = JSON.parse(itemsJson) || [];
-
-        items.push(mealItem);
-
-        localStorage.setItem('thursdayMeals', JSON.stringify(items));
-        openAddThursdayMealPopup();
-        refresh();
-
-    };
-    const addToFriday = (e) => {
-        e.preventDefault();
-        const food = e.target.food.value;
-        const amount = Number(e.target.amount.value);
-
-        const selectedMeal = meals.filter((meal, index) => index == food)
-        const image = selectedMeal[0].image;
-        const calories = selectedMeal[0].calories / selectedMeal[0].amount * amount;
-        const mealItem = {
-            id: Date.now(),
-            food: food,
-            image: image,
-            calories: calories,
-            amount: amount
-        };
-
-        const itemsJson = localStorage.getItem('fridayMeals');
-        const items = JSON.parse(itemsJson) || [];
-
-        items.push(mealItem);
-
-        localStorage.setItem('fridayMeals', JSON.stringify(items));
-        openAddFridayMealPopup();
-        refresh();
-
+        openAddDayMealPopup();
+        setTriggerUpdate(true);
     };
 
     const submitHandler = (e) => {
         e.preventDefault();
-
         const name = e.target.name.value;
         const phone = e.target.phone.value;
         const email = e.target.email.value;
         const dob = e.target.dob.value;
         const city = e.target.city.value;
-
         const patient = {
             name: name,
             phone: phone,
@@ -359,14 +197,10 @@ const NewDietProgram = (props) => {
             fridayMeals: fridayMeals,
             totalCalories: totalCalories
         }
-
         const itemsJson = localStorage.getItem('patients');
         const patients = JSON.parse(itemsJson) || [];
-
         patients.push(patient);
-
         localStorage.setItem('patients', JSON.stringify(patients));
-
         let itemsToRemove = [
             'saturdayMeals',
             'sundayMeals',
@@ -376,11 +210,9 @@ const NewDietProgram = (props) => {
             'thursdayMeals',
             'fridayMeals'
         ]
-
-        itemsToRemove.map((item)=>{
+        itemsToRemove.map((item) => {
             localStorage.removeItem(item);
         })
-
         onNavigate('/view-program');
     };
 
@@ -396,7 +228,7 @@ const NewDietProgram = (props) => {
                         <Input label="Email" name="email" />
                         <Input label="Date of Birth" type="date" name="dob" />
                         <Select label="City" name="city" defaultValue={CITIES[0]}
->
+                        >
                             {
                                 CITIES.map((city, index) => {
                                     return (<option key={index}>{city}</option>);
@@ -419,157 +251,76 @@ const NewDietProgram = (props) => {
                             }
                         </div>
                         {
-                            chosedDay === DAYS[0] &&
+                            chosedDay != "" &&
                             <div>
-                                <DayMeals openAddDayMealPopup={openAddSaturdayMealPopup} >
+                                <DayMeals openAddDayMealPopup={openAddDayMealPopup} cal={calculateDayCalories} day={chosedDay}>
                                     {
+                                        chosedDay == "Saturday" &&
                                         saturdayMeals.map((meal, index) => {
                                             return (
                                                 <MealItem item={meal}
                                                     key={index} />
                                             )
-                                        })}
-                                </DayMeals>
-                                {
-                                    localStorage.saturdayMeals &&
-                                    <p>
-                                        Total Colories: {calculateSaturdayCalories()} &nbsp;
-                                        number of meals: {JSON.parse(localStorage.saturdayMeals).length}
-                                    </p>
-                                }
-                            </div>
-                        }
-                        {
-                            chosedDay === DAYS[1] &&
-                            <div>
-                                <DayMeals openAddDayMealPopup={openAddSundayMealPopup} >
+                                        })
+                                    }
                                     {
+                                        chosedDay == "Sunday" &&
                                         sundayMeals.map((meal, index) => {
                                             return (
                                                 <MealItem item={meal}
                                                     key={index} />
                                             )
-                                        })}
-                                </DayMeals>
-                                {
-                                    localStorage.sundayMeals &&
-                                    <p>
-                                        Total Colories: {calculateSundayCalories()} &nbsp;
-                                        number of meals: {JSON.parse(localStorage.sundayMeals)?.length}
-                                    </p>
-                                }
-
-                            </div>
-                        }
-                        {
-                            chosedDay === DAYS[2] &&
-                            <div>
-                                <DayMeals openAddDayMealPopup={openAddMondayMealPopup} >
+                                        })
+                                    }
                                     {
+                                        chosedDay == "Monday" &&
                                         mondayMeals.map((meal, index) => {
                                             return (
                                                 <MealItem item={meal}
                                                     key={index} />
                                             )
-                                        })}
-                                </DayMeals>
-                                {
-                                    localStorage.mondayMeals &&
-                                    <p>
-                                        Total Colories: {calculateMondayCalories()} &nbsp;
-                                        number of meals: {JSON.parse(localStorage.mondayMeals)?.length}
-                                    </p>
-                                }
-
-                            </div>
-                        }
-                        {
-                            chosedDay === DAYS[3] &&
-                            <div>
-                                <DayMeals openAddDayMealPopup={openAddTuesdayMealPopup} >
+                                        })
+                                    }
                                     {
+                                        chosedDay == "Tuesday" &&
                                         tuesdayMeals.map((meal, index) => {
                                             return (
                                                 <MealItem item={meal}
                                                     key={index} />
                                             )
-                                        })}
-                                </DayMeals>
-                                {
-                                    localStorage.tuesdayMeals &&
-                                    <p>
-                                        Total Colories: {calculateTuesdayCalories()} &nbsp;
-                                        number of meals: {JSON.parse(localStorage.tuesdayMeals)?.length}
-                                    </p>
-                                }
-                            </div>
-                        }
-                        {
-                            chosedDay === DAYS[4] &&
-                            <div>
-
-                                <DayMeals openAddDayMealPopup={openAddWednesdayMealPopup} >
+                                        })
+                                    }
                                     {
+                                        chosedDay == "Wednesday" &&
                                         wednesdayMeals.map((meal, index) => {
                                             return (
                                                 <MealItem item={meal}
                                                     key={index} />
                                             )
-                                        })}
-                                </DayMeals>
-                                {
-                                    localStorage.wednesdayMeals &&
-                                    <p>
-                                        Total Colories: {calculateWednesdayCalories()} &nbsp;
-                                        number of meals: {JSON.parse(localStorage.wednesdayMeals)?.length}
-                                    </p>
-                                }
-                            </div>
-                        }
-                        {
-                            chosedDay === DAYS[5] &&
-                            <div>
-
-                                <DayMeals openAddDayMealPopup={openAddThursdayMealPopup} >
+                                        })
+                                    }
                                     {
+                                        chosedDay == "Thursday" &&
                                         thursdayMeals.map((meal, index) => {
                                             return (
                                                 <MealItem item={meal}
                                                     key={index} />
                                             )
-                                        })}
-                                </DayMeals>
-                                {
-                                    localStorage.thursdayMeals &&
-                                    <p>
-                                        Total Colories: {calculateThursdayCalories()} &nbsp;
-                                        number of meals: {JSON.parse(localStorage.thursdayMeals)?.length}
-                                    </p>
-                                }
-                            </div>
-                        }
-                        {
-                            chosedDay === DAYS[6] &&
-                            <div>
-                                <DayMeals openAddDayMealPopup={openAddFridayMealPopup} >
+                                        })
+                                    }
                                     {
+                                        chosedDay == "Friday" &&
                                         fridayMeals.map((meal, index) => {
                                             return (
                                                 <MealItem item={meal}
                                                     key={index} />
                                             )
-                                        })}
+                                        })
+                                    }
+
                                 </DayMeals>
-                                {
-                                    localStorage.fridayMeals &&
-                                    <p>
-                                        Total Colories: {calculateFridayCalories()} &nbsp;
-                                        number of meals: {JSON.parse(localStorage.fridayMeals)?.length}
-                                    </p>
-                                }
                             </div>
                         }
-
                     </div>
                 </div>
                 <div className="buttom-container">
@@ -577,55 +328,12 @@ const NewDietProgram = (props) => {
                 </div>
             </form>
             <PopupMeal
-                openAddButton={addToSaturdayButton}
-                openAddDayMealPopup={openAddSaturdayMealPopup}
-                addHandler={addToSaturday}
+                openAddButton={addToDayButton}
+                openAddDayMealPopup={openAddDayMealPopup}
+                addHandler={addDayMeal}
                 title="Add Saturday Meal"
                 submit="Add"
             />
-            <PopupMeal
-                openAddButton={addToSundayButton}
-                openAddDayMealPopup={openAddSundayMealPopup}
-                addHandler={addToSunday}
-                title="Add Sunday Meal"
-                submit="Add"
-            />
-            <PopupMeal
-                openAddButton={addToMondayButton}
-                openAddDayMealPopup={openAddMondayMealPopup}
-                addHandler={addToMonday}
-                title="Add Monday Meal"
-                submit="Add"
-            />
-            <PopupMeal
-                openAddButton={addToTuesdayButton}
-                openAddDayMealPopup={openAddTuesdayMealPopup}
-                addHandler={addToTuesday}
-                title="Add Tuesday Meal"
-                submit="Add"
-            />
-            <PopupMeal
-                openAddButton={addToWednesdayButton}
-                openAddDayMealPopup={openAddWednesdayMealPopup}
-                addHandler={addToWednesday}
-                title="Add Wednesday Meal"
-                submit="Add"
-            />
-            <PopupMeal
-                openAddButton={addToThursdayButton}
-                openAddDayMealPopup={openAddThursdayMealPopup}
-                addHandler={addToThursday}
-                title="Add Thursday Meal"
-                submit="Add"
-            />
-            <PopupMeal
-                openAddButton={addToFridayButton}
-                openAddDayMealPopup={openAddFridayMealPopup}
-                addHandler={addToFriday}
-                title="Add Friday Meal"
-                submit="Add"
-            />
-
         </div>
 
     )

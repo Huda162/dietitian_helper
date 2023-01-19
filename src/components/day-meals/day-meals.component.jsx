@@ -7,9 +7,9 @@ const DayMeals = (props) => {
             {props.children}
             <AddCard openAddDayMealPopup={props.openAddDayMealPopup}></AddCard>
             {
-                <p>
+                <p className='statistics'>
                     Total Colories: {props.cal()} &nbsp;
-                    {/* number of meals: {JSON.parse(localStorage.mondayMeals)?.length} */}
+                    number of meals: {props.mealsNumber()}
                 </p>
             }
         </div>

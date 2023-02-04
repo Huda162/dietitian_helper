@@ -57,12 +57,17 @@ const NewDietProgram = (props) => {
     }
 
     useEffect(() => {
+        getFoodItems();
+    }, []);
+
+    useEffect(() => {
         if (triggerUpdate) {
             getFoodItems();
             calculateTotalCalories();
             setTriggerUpdate(false);
         }
     }, [triggerUpdate]);
+
 
     const calculateDayCalories = () => {
         let totalDayCal = 0;
@@ -133,7 +138,7 @@ const NewDietProgram = (props) => {
         e.preventDefault();
         const foodIndex = e.target.food.value;
         const amount = Number(e.target.amount.value);
-        const selectedMeal = meals.filter((meal, index) => index === foodIndex);
+        const selectedMeal = meals.filter((meal, index) => index == foodIndex);
         const foodName = selectedMeal[0].food;
         const image = selectedMeal[0].image;
         const calories = selectedMeal[0].calories / selectedMeal[0].amount * amount;

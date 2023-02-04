@@ -53,13 +53,8 @@ const NewDietProgram = (props) => {
         fridayMeals.forEach(meal => {
             total = total + meal.calories;
         });
-        setTotalCalories(Math.round(total));
+        setTotalCalories(Math.ceil(total));
     }
-
-
-    useEffect(() => {
-        getFoodItems();
-    }, []);
 
     useEffect(() => {
         if (triggerUpdate) {
@@ -76,37 +71,37 @@ const NewDietProgram = (props) => {
                 saturdayMeals.forEach(meal => {
                     totalDayCal = totalDayCal + meal.calories;
                 })
-                return Math.round(totalDayCal);
+                return Math.ceil(totalDayCal);
             case 'Sunday':
                 sundayMeals.forEach(meal => {
                     totalDayCal = totalDayCal + meal.calories;
                 })
-                return Math.round(totalDayCal);
+                return Math.ceil(totalDayCal);
             case 'Monday':
                 mondayMeals.forEach(meal => {
                     totalDayCal = totalDayCal + meal.calories;
                 })
-                return Math.round(totalDayCal);
+                return Math.ceil(totalDayCal);
             case 'Tuesday':
                 tuesdayMeals.forEach(meal => {
                     totalDayCal = totalDayCal + meal.calories;
                 })
-                return Math.round(totalDayCal);
+                return Math.ceil(totalDayCal);
             case 'Wednesday':
                 wednesdayMeals.forEach(meal => {
                     totalDayCal = totalDayCal + meal.calories;
                 })
-                return Math.round(totalDayCal);
+                return Math.ceil(totalDayCal);
             case 'Thursday':
                 thursdayMeals.forEach(meal => {
                     totalDayCal = totalDayCal + meal.calories;
                 })
-                return Math.round(totalDayCal);
+                return Math.ceil(totalDayCal);
             case 'Friday':
                 fridayMeals.forEach(meal => {
                     totalDayCal = totalDayCal + meal.calories;
                 })
-                return Math.round(totalDayCal);
+                return Math.ceil(totalDayCal);
             default:
                 break;
         }
@@ -138,7 +133,7 @@ const NewDietProgram = (props) => {
         e.preventDefault();
         const foodIndex = e.target.food.value;
         const amount = Number(e.target.amount.value);
-        const selectedMeal = meals.filter((meal, index) => index == foodIndex);
+        const selectedMeal = meals.filter((meal, index) => index === foodIndex);
         const foodName = selectedMeal[0].food;
         const image = selectedMeal[0].image;
         const calories = selectedMeal[0].calories / selectedMeal[0].amount * amount;
@@ -219,7 +214,7 @@ const NewDietProgram = (props) => {
     return (
 
         <div className="page">
-            <Header />
+            <Header/>
             <form onSubmit={submitHandler}>
                 <div className="top-container">
                     <div className="patient-info">
@@ -251,14 +246,14 @@ const NewDietProgram = (props) => {
                             }
                         </div>
                         {
-                            chosedDay != "" &&
+                            chosedDay !== "" &&
                             <div>
                                 <DayMeals
                                     openAddDayMealPopup={openAddDayMealPopup}
                                     cal={calculateDayCalories}
                                     mealsNumber={calculateNoOfDayMeals}>
                                     {
-                                        chosedDay == "Saturday" &&
+                                        chosedDay === "Saturday" &&
                                         saturdayMeals.map((meal, index) => {
                                             return (
                                                 <MealItem className="mealCard" item={meal}
@@ -267,7 +262,7 @@ const NewDietProgram = (props) => {
                                         })
                                     }
                                     {
-                                        chosedDay == "Sunday" &&
+                                        chosedDay === "Sunday" &&
                                         sundayMeals.map((meal, index) => {
                                             return (
                                                 <MealItem item={meal}
@@ -276,7 +271,7 @@ const NewDietProgram = (props) => {
                                         })
                                     }
                                     {
-                                        chosedDay == "Monday" &&
+                                        chosedDay === "Monday" &&
                                         mondayMeals.map((meal, index) => {
                                             return (
                                                 <MealItem item={meal}
@@ -285,7 +280,7 @@ const NewDietProgram = (props) => {
                                         })
                                     }
                                     {
-                                        chosedDay == "Tuesday" &&
+                                        chosedDay === "Tuesday" &&
                                         tuesdayMeals.map((meal, index) => {
                                             return (
                                                 <MealItem item={meal}
@@ -294,7 +289,7 @@ const NewDietProgram = (props) => {
                                         })
                                     }
                                     {
-                                        chosedDay == "Wednesday" &&
+                                        chosedDay === "Wednesday" &&
                                         wednesdayMeals.map((meal, index) => {
                                             return (
                                                 <MealItem item={meal}
@@ -303,7 +298,7 @@ const NewDietProgram = (props) => {
                                         })
                                     }
                                     {
-                                        chosedDay == "Thursday" &&
+                                        chosedDay === "Thursday" &&
                                         thursdayMeals.map((meal, index) => {
                                             return (
                                                 <MealItem item={meal}
@@ -312,7 +307,7 @@ const NewDietProgram = (props) => {
                                         })
                                     }
                                     {
-                                        chosedDay == "Friday" &&
+                                        chosedDay === "Friday" &&
                                         fridayMeals.map((meal, index) => {
                                             return (
                                                 <MealItem item={meal}
@@ -334,7 +329,7 @@ const NewDietProgram = (props) => {
                 openAddButton={addToDayButton}
                 openAddDayMealPopup={openAddDayMealPopup}
                 addHandler={addDayMeal}
-                title="Add Saturday Meal"
+                title="Add Meal"
                 submit="Add"
             />
         </div>

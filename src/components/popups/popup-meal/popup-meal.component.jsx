@@ -52,10 +52,10 @@ const PopupMeal = (props) => {
                         {selectedMeal ?
                             <Card>
                                 <span className='card-left'>
-                                    <img src={meals[selectedMeal].image} alt="food-image" className='food-image'/>
+                                    <img src={meals[selectedMeal].image} alt="food" className='food-image'/>
                                 </span>
                                 <span className='card-right'>
-                                    <p>Total Calories: {Math.round(meals[selectedMeal].calories/meals[selectedMeal].amount)}*{amount} = {amount * meals[selectedMeal].calories/meals[selectedMeal].amount}</p>
+                                    <p>Total Calories: {Math.ceil(meals[selectedMeal].calories/meals[selectedMeal].amount)}*{amount} = {Math.ceil(amount * meals[selectedMeal].calories/meals[selectedMeal].amount)}</p>
                                 </span>
                             </Card>
                             : (<div></div>)}

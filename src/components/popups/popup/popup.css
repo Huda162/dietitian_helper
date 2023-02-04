@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Nanum+Gothic&display=swap');
+
 .popup{
     display: flex;
     justify-content: center;
@@ -18,4 +20,5 @@
     max-width: 500px;
     box-sizing: border-box;
     border-radius: 5px;
-   }
+    font-family: 'Montserrat';
+}

@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import Input from "../../common/input/input.component";
 import Header from "../../components/header/header.component";
 import MealItem from "../../components/cards/meal-item/meal-item.component";
 import PopupContent from "../../components/popups/popup-content/popup-content.component";
 import PopupUpdate from "../../components/popups/popup-update/popup-update.component";
 import './manage-food-table.css'
-
 
 const ManageFoodTable = (props) => {
     const [openPopupButton, setOpenPupupButton] = useState(false);
@@ -71,7 +69,7 @@ const ManageFoodTable = (props) => {
 
     const openUpdateItem = (i) => {
         setOpenPopupForUpdate(!openPopupForUpdate);
-        const itemToUpdate = foodItems.filter((meal, index) =>  index == i )
+        const itemToUpdate = foodItems.filter((meal, index) =>  index === i )
         localStorage.setItem('temporaryItem', JSON.stringify(itemToUpdate));
     };
 
@@ -81,7 +79,7 @@ const ManageFoodTable = (props) => {
         let itemToUpdate = JSON.parse(localStorage.getItem('temporaryItem')) || [];
         let itemsJson = JSON.parse(localStorage.getItem('foods')) || [];
         itemsJson.forEach((item, index) => { 
-            if(itemToUpdate[0].id== item.id){
+            if(itemToUpdate[0].id=== item.id){
                 item.food=newFood;
             }   
         });
@@ -95,7 +93,7 @@ const ManageFoodTable = (props) => {
         let itemToUpdate = JSON.parse(localStorage.getItem('temporaryItem')) || [];
         let itemsJson = JSON.parse(localStorage.getItem('foods')) || [];
         itemsJson.forEach((item, index) => { 
-            if(itemToUpdate[0].id== item.id){
+            if(itemToUpdate[0].id=== item.id){
                 item.image=newImage;
             }   
         });
@@ -109,7 +107,7 @@ const ManageFoodTable = (props) => {
         let itemToUpdate = JSON.parse(localStorage.getItem('temporaryItem')) || [];
         let itemsJson = JSON.parse(localStorage.getItem('foods')) || [];
         itemsJson.forEach((item, index) => { 
-            if(itemToUpdate[0].id== item.id){
+            if(itemToUpdate[0].id=== item.id){
                 item.calories=newCalories;
             }   
         });
@@ -123,7 +121,7 @@ const ManageFoodTable = (props) => {
         let itemToUpdate = JSON.parse(localStorage.getItem('temporaryItem')) || [];
         let itemsJson = JSON.parse(localStorage.getItem('foods')) || [];
         itemsJson.forEach((item, index) => { 
-            if(itemToUpdate[0].id== item.id){
+            if(itemToUpdate[0].id=== item.id){
                 item.amount=newAmount;
             }   
         });
@@ -135,7 +133,7 @@ const ManageFoodTable = (props) => {
 
     return (
         <div className="page">
-            <Header />
+            <Header/>
             <button className="buttons" onClick={handleAddClick}>Add food Item</button>
             <div className="cards-container">
                 {
@@ -144,6 +142,8 @@ const ManageFoodTable = (props) => {
                             <MealItem
                                 item={item}
                                 key={index}
+                                trash
+                                update
                                 deleteItem={() => deleteItem(index)}
                                 updateItem={() => openUpdateItem(index)}
                             />

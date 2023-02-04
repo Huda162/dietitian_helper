@@ -1,4 +1,3 @@
-import div from '../meal-card/card.component';
 import './add-card.css';
 
 const AddCard = (props) => {

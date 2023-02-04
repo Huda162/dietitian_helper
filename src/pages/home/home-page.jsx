@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import logo from '../../assets/app-logo.png';
 import './home.css'
 const Home = (props) => {
+    
     return (
         <div className="home">
             <div className="welcome">

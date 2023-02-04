@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Nanum+Gothic&display=swap');
+
+.back{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(241, 233, 206);
+    height: 749px;
+}
+
+.back > .front{
+    color:rgb(72, 131, 75);
+    padding: 15px;
+    max-width: 700px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 50px;
+    background-color: rgb(243, 221, 148);
+    border: 1px solid rgb(72, 131, 75);
+}
+
+.logout-button{
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: rgb(241, 233, 206);
+    background-clip: padding-box;
+    border: 1px solid rgb(117, 177, 120);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 3px;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    font-family: 'Montserrat';
+    width: 100px;
+    margin-top: 55px;
+    margin-left: 15px;
+    color: rgb(72, 131, 75);
+}
+
+.logout-button:hover{
+    border: none;
+    background-color: rgb(72, 131, 75);
+    color: rgb(241, 233, 206);
+    border-radius: 5px;
+    box-shadow: none;
+}
+
+.logout-button:active{
+    transform: scale(0.95);
+}
+
+.texts{
+    margin-left: 60px;
+    font-family: 'Montserrat';
+    color: rgb(72, 131, 75);
+}
+
+.app-logo{
+    width: 300px;
+    margin-left: 160px;
+}

@@ -10,18 +10,12 @@ const MealItem = (props) => {
                     <img src={props.item.image} alt="food" className='food-image'/>
                 </span>
                 <span className='card-right'>
-                    <p><b>Food:</b> {props.item.food}<br /><b>Calories:</b> {props.item.calories}<br /><b>Amount:</b> {props.item.amount}</p>
-                    {/* <p>Calories: {props.item.calories}</p>
-                    <p>Amount: {props.item.amount}</p> */}
+                    <p><b>Food:</b> {props.item.food}<br /><b>Calories:</b> {Math.ceil(props.item.calories)}<br /><b>Amount:</b> {props.item.amount}</p>
                 </span>
                 <span>
-                    {/* <span className="delete" onClick={props.deleteItem}>&times;</span>
-                    <span className="update" >&#x270E;</span>    */}
-                    <Trash size={20} onClick={props.deleteItem} className="icon"/> 
-                    <PencilLine size={20} onClick={props.updateItem} className="icon"/>                
+                    {props.trash && <Trash size={20} onClick={props.deleteItem} className="icon"/> }
+                    {props.update && <PencilLine size={20} onClick={props.updateItem} className="icon"/>}                
                 </span>
-                
-
             </Card>
 
     )
